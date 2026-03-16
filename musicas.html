@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lista Karaoke – Karaoke Party</title>
+
+  <!-- CSS Externo -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Montserrat:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Dependências Elementor (Mantidas conforme original para layout funcional) -->
+  <link rel='stylesheet' href='https://karaoke.unodev.com.br/wp-content/plugins/elementor/assets/css/frontend.min.css'
+    media='all' />
+
+  <style>
+    /* Ajustes rápidos de fundo para compatibilidade com o design anterior */
+    body {
+      font-family: 'Poppins', 'Montserrat', sans-serif;
+      background: #000;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header-logo {
+      max-width: 200px;
+      margin: 20px auto;
+      display: block;
+    }
+
+    .container-custom {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body class="elementor-default elementor-template-full-width">
+
+  <header class="container-custom" style="text-align: center;">
+    <a href="index.html">
+      <img src="images/logo.png" alt="Karaoke Party Logo" class="header-logo">
+    </a>
+    <nav style="margin-top: 20px;">
+      <a href="index.html" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold;">Home</a>
+      <a href="musicas.html" style="color: #6C0175; text-decoration: none; margin: 0 15px; font-weight: bold;">Lista
+        Karaoke</a>
+    </nav>
+  </header>
+
+  <main class="container-custom">
+    <!-- Seção de Sugestões -->
+    <section class="karaoke-sugestoes-header">
+      <h2 class="titulo-pesquisa">🎤 Pesquise sua música favorita!</h2>
+      <p class="subtitulo-pesquisa">
+        Você pode procurar por artista, título, ou até pela letra inicial.
+      </p>
+    </section>
+
+    <section class="karaoke-sugestoes">
+      <div class="box-sugestoes">
+        <h3>🎲 Tá sem ideia? Deixa a gente escolher! 😄</h3>
+        <div class="botoes-sugestoes">
+          <button onclick="sugerirMusica()">🎵 Aleatória <br>(Todos os idiomas)</button>
+          <button onclick="sugerirMusicaPorIdioma('BRA')">🇧🇷 Aleatória <br>em Português</button>
+          <button onclick="sugerirMusicaPorIdioma('ING')">🇺🇸 Aleatória <br>em Inglês</button>
+        </div>
+        <div id="sugestao" class="musica-sugerida"></div>
+
+        <div style="margin-top:15px;">
+          <a id="botaoWhatsapp" href="#" target="_blank"
+            style="display:none;background:#25D366;color:#fff;padding:10px 14px;border-radius:6px;text-decoration:none;">
+            Pedir essa música no WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filtros e Tabela de Músicas -->
+    <div id="dataAtualizacao"></div>
+
+    <div id="filtros">
+      <input type="text" id="busca" placeholder="Buscar música...">
+      <select id="idiomaFiltro">
+        <option value="">Selecionar idioma</option>
+        <option value="ING">Inglês</option>
+        <option value="BRA">Português</option>
+      </select>
+      <select id="itensPorPagina">
+        <option value="25">25 por página</option>
+        <option value="50">50 por página</option>
+        <option value="100">100 por página</option>
+      </select>
+    </div>
+
+    <div id="menuLetras"></div>
+
+    <table id="tabelaMusicas">
+      <thead>
+        <tr>
+          <th>CÓDIGO</th>
+          <th>ARTISTA</th>
+          <th>TÍTULO</th>
+          <th>LETRA INICIAL</th>
+          <th class="col-pedir">PEDIR</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Populado via JS -->
+      </tbody>
+    </table>
+
+    <div class="paginacao" id="paginacao"></div>
+  </main>
+
+  <footer class="container-custom"
+    style="padding: 50px 0; text-align: center; border-top: 1px solid #333; margin-top: 50px;">
+    <div style="font-size: 1.5rem; font-weight: bold; margin-bottom: 20px;">
+      <span class="hero-gradient">Karaoke</span> <span style="color: white;">Party</span>
+    </div>
+    <p style="color: #888;">A diversão musical está a apenas um clique de distância!</p>
+    <div style="margin: 20px 0; display: flex; justify-center: center; gap: 20px; font-size: 1.2rem;">
+      <i class="fa-solid fa-music text-purple-500"></i>
+    </div>
+    <p style="color: #666; font-size: 0.8rem;">© 2024 Karaoke Party. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- JavaScript Externo -->
+  <script src="js/scripts.js"></script>
+</body>
+
+</html>

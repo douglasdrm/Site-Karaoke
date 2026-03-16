@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Karaoke Party</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="icon" href="img/icon.png">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #000;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(45deg, #2d43d8 0%, #a020f0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .microphone-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-15px)
+            }
+
+            100% {
+                transform: translateY(0)
+            }
+        }
+
+        .song-card {
+            transition: all .3s;
+            background: rgba(255, 255, 255, .1);
+            backdrop-filter: blur(10px);
+        }
+
+        .song-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, .3);
+        }
+
+        .cta-button {
+            transition: .3s;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, .4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(255, 215, 0, .6);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.05)
+            }
+
+            100% {
+                transform: scale(1)
+            }
+        }
+
+        .text-neon {
+            text-shadow:
+                0 0 1px #fff,
+                0 0 2px #fff,
+                0 0 4px #f0f,
+                0 0 6px #f0f,
+                0 0 8px #f0f,
+                0 0 10px #f0f;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header class="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-md">
+
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+            <!-- LOGO -->
+
+            <a href="index.html" class="flex items-center">
+                <img src="images/logo.png" alt="Karaoke Party" class="h-10">
+            </a>
+
+            <!-- MENU -->
+
+            <nav class="flex items-center gap-8 text-sm font-semibold">
+
+                <a href="index.html" class="text-purple-400 hover:text-white transition">
+                    HOME
+                </a>
+
+                <a href="lista-karaoke.html" class="text-white hover:text-purple-400 transition">
+                    LISTA KARAOKE
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <!-- HERO -->
+
+    <section class="container mx-auto px-6 pt-32 pb-20 flex flex-col md:flex-row items-center">
+
+        <div class="md:w-1/2 mb-10 md:mb-0">
+
+            <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">
+                <span class="hero-gradient text-neon">Liberte sua voz</span><br>
+                <span class="text-white">e divirta-se!</span>
+            </h1>
+
+            <p class="text-xl text-gray-300 mb-8">
+                A maior coleção de músicas para karaokê.
+                De clássicos aos hits mais recentes.
+            </p>
+
+            <a href="lista-karaoke.html"
+                class="cta-button text-white font-bold py-4 px-8 rounded-full inline-flex items-center"
+                style="background:#2d43d8">
+
+                <span>Ver Lista de Músicas</span>
+                <i class="fas fa-arrow-right ml-3"></i>
+
+            </a>
+
+        </div>
+
+        <div class="md:w-1/2 flex justify-center">
+
+            <div class="relative">
+
+                <img src="img/microfone.png" class="microphone-animation w-96" alt="Microfone karaoke">
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FEATURES -->
+
+    <section class="py-20 bg-gray-900">
+
+        <div class="container mx-auto px-6">
+
+            <h2 class="text-4xl font-bold text-center mb-16">
+                <span class="hero-gradient">Por que escolher</span>
+                <span class="text-white">nosso karaokê?</span>
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-10">
+
+                <div class="song-card p-8 rounded-xl text-center">
+
+                    <div class="bg-purple-600 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-star text-2xl"></i>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4">Músicas Populares</h3>
+
+                    <p class="text-gray-300">
+                        Clássicos e novidades para todo mundo cantar.
+                    </p>
+
+                </div>
+
+                <div class="song-card p-8 rounded-xl text-center">
+
+                    <div class="bg-blue-600 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-sliders-h text-2xl"></i>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4">Controles Fáceis</h3>
+
+                    <p class="text-gray-300">
+                        Interface simples para ajustar tom e velocidade.
+                    </p>
+
+                </div>
+
+                <div class="song-card p-8 rounded-xl text-center">
+
+                    <div class="bg-purple-600 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-users text-2xl"></i>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4">Modo Festa</h3>
+
+                    <p class="text-gray-300">
+                        Fila de cantores perfeita para eventos.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- CTA -->
+
+    <section class="py-20 bg-gray-800 text-center">
+
+        <div class="container mx-auto px-6">
+
+            <h2 class="text-4xl font-bold mb-8">
+                <span class="hero-gradient">Pronto para</span>
+                <span class="text-white">começar?</span>
+            </h2>
+
+            <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+                Acesse agora a lista completa de músicas.
+            </p>
+
+            <div class="pulse inline-block">
+
+                <a href="lista-karaoke.html"
+                    class="cta-button bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold py-5 px-12 rounded-full inline-flex items-center text-xl">
+
+                    <i class="fas fa-list-ol mr-3"></i>
+                    <span>Ver Lista Completa</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer class="py-10 bg-black text-center">
+
+        <div class="text-2xl font-bold mb-6">
+            <span class="hero-gradient">Karaoke</span>
+            <span class="text-white">Party</span>
+        </div>
+
+        <p class="text-gray-400 mb-6">
+            A diversão musical está a um clique.
+        </p>
+
+        <p class="text-gray-500 text-sm">
+            © 2026 Karaoke Party
+        </p>
+
+    </footer>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const musicNote = document.querySelector(".fa-music")
+
+            if (musicNote) {
+
+                let rotation = 0
+
+                setInterval(() => {
+
+                    rotation += 5
+                    musicNote.style.transform = `rotate(${rotation}deg)`
+
+                }, 100)
+
+            }
+
+        })
+
+    </script>
+
+</body>
+
+</html>
