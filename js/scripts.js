@@ -1,10 +1,13 @@
-/* Lógica de JavaScript Extraída de musicas.html */
+/* Lógica de JavaScript para Karaoke Party */
 
-const urlJSON = "data/songs.json"; // Apontando agora para o local
+const urlJSON = "data/songs.json";
 let todasMusicas = [];
+let favoritos = JSON.parse(localStorage.getItem('karaoke_favoritos')) || [];
+let filtroTexto = "";
+let filtroIdioma = "";
+let filtroLetra = "";
 let paginaAtual = 1;
 let itensPorPagina = 25;
-let letraSelecionada = "";
 
 document.addEventListener('DOMContentLoaded', function () {
     // Inicialização da Tabela de Músicas
@@ -59,219 +62,219 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    // Configuração de Event Listeners para Filtros
+    // Event Listeners
     const buscaInput = document.getElementById("busca");
     if (buscaInput) {
-        buscaInput.addEventListener("input", () => {
+        buscaInput.addEventListener("input", (e) => {
+            filtroTexto = e.target.value.toLowerCase();
             paginaAtual = 1;
             carregarTabela();
         });
     }
 
-    const idiomaFiltro = document.getElementById("idiomaFiltro");
-    if (idiomaFiltro) {
-        idiomaFiltro.addEventListener("change", () => {
+    const idiomaSelect = document.getElementById("idiomaFiltro");
+    if (idiomaSelect) {
+        idiomaSelect.addEventListener("change", (e) => {
+            filtroIdioma = e.target.value;
             paginaAtual = 1;
             carregarTabela();
         });
     }
 
-    const itensPorPaginaSelect = document.getElementById("itensPorPagina");
-    if (itensPorPaginaSelect) {
-        itensPorPaginaSelect.addEventListener("change", e => {
+    const itensSelect = document.getElementById("itensPorPagina");
+    if (itensSelect) {
+        itensSelect.addEventListener("change", (e) => {
             itensPorPagina = parseInt(e.target.value);
             paginaAtual = 1;
             carregarTabela();
         });
     }
 
-    // Lógica do Sugestor (Randomizer)
-    setInterval(function () {
-        const sugestao = document.getElementById("sugestao");
-        const botao = document.getElementById("botaoWhatsapp");
-
-        if (!sugestao || sugestao.innerText.trim() === "") return;
-
-        const texto = sugestao.innerText.trim();
-        const numeroWhatsApp = "5521967192554";
-
-        const mensagem = encodeURIComponent(
-            "🎤 Pedido de Música\n\n" +
-            texto +
-            "\n\nNome do cantor: "
-        );
-
-        if (botao) {
-            botao.href = "https://wa.me/" + numeroWhatsApp + "?text=" + mensagem;
-            botao.style.display = "inline-block";
+    // Scroll to Top logic
+    const scrollTopBtn = document.getElementById("scrollTop");
+    window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 300) {
+            scrollTopBtn.classList.add("visible");
+        } else {
+            scrollTopBtn.classList.remove("visible");
         }
-    }, 1000);
+    });
 
-    // Animação da nota musical no footer
-    const musicNote = document.querySelector('.fa-music');
-    if (musicNote) {
-        let rotation = 0;
-        setInterval(() => {
-            rotation += 5;
-            musicNote.style.transform = `rotate(${rotation}deg)`;
-        }, 100);
+    if (scrollTopBtn) {
+        scrollTopBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     }
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            }
+    // Filtro de Favoritos
+    const btnFav = document.getElementById("btnVerFavoritos");
+    if (btnFav) {
+        btnFav.addEventListener("click", () => {
+            const isShowingFavs = btnFav.classList.toggle("bg-fuchsia-600");
+            btnFav.classList.toggle("bg-gray-800", !isShowingFavs);
+            const txt = document.getElementById("txtFavoritos");
+            txt.textContent = isShowingFavs ? "Ver Todas" : "Meus Favoritos";
+
+            mostrarApenasFavoritos = isShowingFavs;
+            paginaAtual = 1;
+            carregarTabela();
         });
-    });
+    }
 });
 
-// Funções Auxiliares
+let mostrarApenasFavoritos = false;
 
-function formatarData(versionStr) {
-    const data = versionStr.substring(0, 8);
-    const dia = data.substring(0, 2);
-    const mes = data.substring(2, 4);
-    const ano = data.substring(4, 8);
+function formatarData(version) {
+    if (!version || version.length < 8) return version;
+    const ano = version.substring(0, 4);
+    const mes = version.substring(4, 6);
+    const dia = version.substring(6, 8);
     return `${dia}/${mes}/${ano}`;
 }
 
 function gerarMenuLetras() {
-    const container = document.getElementById("menuLetras");
-    if (!container) return;
-    const letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-    letras.unshift("#");
-    container.innerHTML = "";
+    const menu = document.getElementById("menuLetras");
+    if (!menu) return;
 
-    letras.forEach(letra => {
-        const btn = document.createElement("button");
-        btn.textContent = letra;
-        btn.classList.toggle("active", letra === letraSelecionada);
-        btn.onclick = () => {
-            letraSelecionada = letraSelecionada === letra ? "" : letra;
-            paginaAtual = 1;
-            carregarTabela();
-            gerarMenuLetras();
-        };
-        container.appendChild(btn);
+    const letras = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    let html = `<button class="letra-btn ${filtroLetra === '' ? 'active' : ''}" onclick="filtrarPorLetra('')">TUDO</button>`;
+
+    letras.forEach(l => {
+        html += `<button class="letra-btn ${filtroLetra === l ? 'active' : ''}" onclick="filtrarPorLetra('${l}')">${l}</button>`;
     });
+
+    menu.innerHTML = html;
+}
+
+function filtrarPorLetra(letra) {
+    filtroLetra = letra;
+    paginaAtual = 1;
+
+    // Atualiza classe ativa
+    document.querySelectorAll(".letra-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.textContent === (letra || "TUDO"));
+    });
+
+    carregarTabela();
 }
 
 function carregarTabela() {
-    const buscaElement = document.getElementById("busca");
-    const idiomaElement = document.getElementById("idiomaFiltro");
+    const tbody = document.querySelector("#tabelaMusicas tbody");
+    if (!tbody) return;
 
-    const busca = buscaElement ? buscaElement.value.toLowerCase() : "";
-    const idioma = idiomaElement ? idiomaElement.value : "";
+    const filtradas = todasMusicas.filter(m => {
+        const matchTexto = (m.artista || "").toLowerCase().includes(filtroTexto) ||
+            (m.titulo || "").toLowerCase().includes(filtroTexto) ||
+            (m.codigo || "").toString().includes(filtroTexto);
 
-    let filtradas = todasMusicas.filter(m => {
-        const artistaMatch = letraSelecionada === "#"
-            ? !/^[A-Z]/i.test(m.artista.charAt(0))
-            : !letraSelecionada || m.artista.toUpperCase().startsWith(letraSelecionada);
+        const matchIdioma = filtroIdioma === "" || m.idioma === filtroIdioma;
 
-        return (
-            artistaMatch &&
-            (!idioma || m.idioma === idioma) &&
-            (
-                m.titulo.toLowerCase().includes(busca) ||
-                m.artista.toLowerCase().includes(busca) ||
-                m.inicioletra.toLowerCase().includes(busca)
-            )
-        );
+        const matchFav = !mostrarApenasFavoritos || favoritos.includes(m.codigo);
+
+        let matchLetra = true;
+        if (filtroLetra !== "") {
+            const primeiraLetra = (m.artista || "").charAt(0).toUpperCase();
+            if (filtroLetra === "#") {
+                matchLetra = !/[A-Z]/.test(primeiraLetra);
+            } else {
+                matchLetra = primeiraLetra === filtroLetra;
+            }
+        }
+
+        return matchTexto && matchIdioma && matchLetra && matchFav;
     });
 
-    const tabela = document.querySelector("#tabelaMusicas tbody");
-    if (!tabela) return;
-    tabela.innerHTML = "";
-
+    const totalItens = filtradas.length;
+    const totalPaginas = Math.ceil(totalItens / itensPorPagina);
     const inicio = (paginaAtual - 1) * itensPorPagina;
     const fim = inicio + itensPorPagina;
-    const paginaMusicas = filtradas.slice(inicio, fim);
+    const musicasPagina = filtradas.slice(inicio, fim);
 
-    for (let m of paginaMusicas) {
-        const tr = document.createElement("tr");
-        const numeroWhatsApp = "5521967192554";
-        const mensagem = encodeURIComponent(
-            `🎤 Pedido de Música\n\nCódigo: ${m.codigo}\nMúsica: ${m.titulo}\nArtista: ${m.artista}\n\nNome do cantor: `
-        );
-        const link = `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;
+    tbody.innerHTML = "";
 
-        tr.innerHTML = `
-            <td data-label="Código">${m.codigo}</td>
-            <td data-label="Artista">${m.artista}</td>
-            <td data-label="Título">${m.titulo}</td>
-            <td data-label="Letra">${m.inicioletra}</td>
-            <td class="col-pedir" data-label="Pedir">
-                <a href="${link}" target="_blank" class="btnPedido">
-                    <i class="fa-brands fa-whatsapp"></i>
-                </a>
-            </td>
-        `;
-        tabela.appendChild(tr);
+    if (musicasPagina.length === 0) {
+        const msg = mostrarApenasFavoritos ? "Você ainda não tem músicas favoritas" : "Nenhuma música encontrada";
+        tbody.innerHTML = `<tr><td colspan="5" class="text-center py-10 text-gray-500 italic">${msg}</td></tr>`;
+    } else {
+        musicasPagina.forEach(m => {
+            const isFav = favoritos.includes(m.codigo);
+            const tr = document.createElement("tr");
+
+            const numeroWhatsApp = "5511999999999"; // Substituir conforme necessário
+            const mensagem = encodeURIComponent(`🎤 Pedido de Música\n\nCódigo: ${m.codigo}\nMúsica: ${m.titulo}\nArtista: ${m.artista}\n\nNome do cantor: `);
+            const linkWA = `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;
+
+            tr.innerHTML = `
+                <td data-label="CÓDIGO" class="col-codigo">#${m.codigo}</td>
+                <td data-label="ARTISTA" class="font-semibold text-white uppercase">${m.artista}</td>
+                <td data-label="TÍTULO" class="text-gray-300 italic">${m.titulo}</td>
+                <td data-label="IDIOMA" class="text-gray-500 text-xs font-bold uppercase">${m.idioma}</td>
+                <td class="text-center">
+                    <div class="flex justify-center items-center gap-3">
+                        <i class="fas fa-star star-btn ${isFav ? 'active' : ''}" onclick="toggleFavorito('${m.codigo}', this)"></i>
+                        <a href="${linkWA}" target="_blank" class="bg-primary hover:bg-accent text-white p-2 rounded-lg transition-colors inline-block leading-none">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
     }
 
-    gerarPaginacao(filtradas.length);
+    gerarPaginacao(totalItens);
+}
+
+function toggleFavorito(codigo, el) {
+    const idx = favoritos.indexOf(codigo);
+    if (idx > -1) {
+        favoritos.splice(idx, 1);
+        el.classList.remove('active');
+    } else {
+        favoritos.push(codigo);
+        el.classList.add('active');
+    }
+    localStorage.setItem('karaoke_favoritos', JSON.stringify(favoritos));
 }
 
 function gerarPaginacao(total) {
-    const paginacaoDiv = document.getElementById("paginacao");
-    if (!paginacaoDiv) return;
-    paginacaoDiv.innerHTML = "";
+    const pagDiv = document.getElementById("paginacao");
+    if (!pagDiv) return;
 
     const totalPaginas = Math.ceil(total / itensPorPagina);
-
-    // Botão "Anterior"
-    const btnAnterior = document.createElement("button");
-    btnAnterior.innerHTML = '<i class="fa-solid fa-backward"></i>';
-    btnAnterior.disabled = paginaAtual === 1;
-    btnAnterior.onclick = () => {
-        if (paginaAtual > 1) {
-            paginaAtual--;
-            carregarTabela();
-        }
-    };
-    paginacaoDiv.appendChild(btnAnterior);
-
-    const maxBotoesVisiveis = 5;
-    let inicio = Math.max(1, paginaAtual - Math.floor(maxBotoesVisiveis / 2));
-    let fim = Math.min(totalPaginas, inicio + maxBotoesVisiveis - 1);
-
-    if (fim - inicio < maxBotoesVisiveis - 1) {
-        inicio = Math.max(1, fim - maxBotoesVisiveis + 1);
+    if (totalPaginas <= 1) {
+        pagDiv.innerHTML = "";
+        return;
     }
 
-    for (let i = inicio; i <= fim; i++) {
-        const botao = document.createElement("button");
-        botao.textContent = i;
-        if (i === paginaAtual) {
-            botao.classList.add("ativo");
-        }
-        botao.onclick = () => {
-            paginaAtual = i;
-            carregarTabela();
-        };
-        paginacaoDiv.appendChild(botao);
+    let html = "";
+    const maxVisible = 5;
+    let start = Math.max(1, paginaAtual - 2);
+    let end = Math.min(totalPaginas, start + maxVisible - 1);
+
+    if (end - start < maxVisible - 1) start = Math.max(1, end - maxVisible + 1);
+
+    // Botão Anterior
+    html += `<button ${paginaAtual === 1 ? 'disabled' : ''} onclick="mudarPagina(${paginaAtual - 1})"><i class="fas fa-chevron-left"></i></button>`;
+
+    for (let i = start; i <= end; i++) {
+        html += `<button class="${i === paginaAtual ? 'active' : ''}" onclick="mudarPagina(${i})">${i}</button>`;
     }
 
-    // Botão "Próxima"
-    const btnProxima = document.createElement("button");
-    btnProxima.innerHTML = '<i class="fa-solid fa-forward"></i>';
-    btnProxima.disabled = (paginaAtual === totalPaginas || totalPaginas === 0);
-    btnProxima.onclick = () => {
-        if (paginaAtual < totalPaginas) {
-            paginaAtual++;
-            carregarTabela();
-        }
-    };
-    paginacaoDiv.appendChild(btnProxima);
+    // Botão Próximo
+    html += `<button ${paginaAtual === totalPaginas ? 'disabled' : ''} onclick="mudarPagina(${paginaAtual + 1})"><i class="fas fa-chevron-right"></i></button>`;
+
+    pagDiv.innerHTML = html;
+}
+
+function mudarPagina(p) {
+    paginaAtual = p;
+    carregarTabela();
+    // Scroll suave para o topo da tabela
+    const filtrosEl = document.getElementById("filtros");
+    if (filtrosEl) {
+        window.scrollTo({ top: filtrosEl.offsetTop - 100, behavior: 'smooth' });
+    }
 }
 
 function sugerirMusica() {
@@ -281,22 +284,26 @@ function sugerirMusica() {
 }
 
 function sugerirMusicaPorIdioma(idioma) {
-    const candidatas = todasMusicas.filter(m => m.idioma === idioma);
-    if (!candidatas.length) {
-        alert("Nenhuma música nesse idioma");
-        return;
-    }
-    const aleatoria = candidatas[Math.floor(Math.random() * candidatas.length)];
+    const filtradas = todasMusicas.filter(m => m.idioma === idioma);
+    if (!filtradas.length) return;
+    const aleatoria = filtradas[Math.floor(Math.random() * filtradas.length)];
     mostrarSugestao(aleatoria);
 }
 
-function mostrarSugestao(musica) {
-    const sugestaoDiv = document.getElementById("sugestao");
-    if (sugestaoDiv) {
-        sugestaoDiv.innerHTML = `
-            <strong>${musica.titulo}</strong><br>
-            <em>${musica.artista}</em><br>
-            Código: ${musica.codigo}
-        `;
+function mostrarSugestao(m) {
+    const div = document.getElementById("sugestao");
+    const btn = document.getElementById("botaoWhatsapp");
+    if (!div) return;
+
+    div.classList.remove('animate-pulse');
+    void div.offsetWidth; // trigger reflow
+    div.classList.add('animate-pulse');
+
+    div.innerHTML = `<span class="text-white opacity-50 text-sm block mb-1">SUGESTÃO:</span> ${m.artista} - ${m.titulo} <br> <span class="text-sm font-normal text-gray-500 font-sans">Código: ${m.codigo}</span>`;
+
+    if (btn) {
+        const mensagem = encodeURIComponent(`🎤 Pedido de Música\n\nCódigo: ${m.codigo}\nMúsica: ${m.titulo}\nArtista: ${m.artista}\n\nNome do cantor: `);
+        btn.href = `https://wa.me/5511999999999?text=${mensagem}`;
+        btn.classList.remove("hidden");
     }
 }

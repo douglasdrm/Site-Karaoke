@@ -8,127 +8,138 @@
 
   <!-- CSS Externo -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Montserrat:wght@400;500;700&display=swap"
-    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/style.css">
-
-  <!-- Dependências Elementor (Mantidas conforme original para layout funcional) -->
-  <link rel='stylesheet' href='https://karaoke.unodev.com.br/wp-content/plugins/elementor/assets/css/frontend.min.css'
-    media='all' />
-
-  <style>
-    /* Ajustes rápidos de fundo para compatibilidade com o design anterior */
-    body {
-      font-family: 'Poppins', 'Montserrat', sans-serif;
-      background: #000;
-      color: white;
-      margin: 0;
-      padding: 0;
-    }
-
-    .header-logo {
-      max-width: 200px;
-      margin: 20px auto;
-      display: block;
-    }
-
-    .container-custom {
-      max-width: 1140px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-  </style>
 </head>
 
-<body class="elementor-default elementor-template-full-width">
+<body class="bg-black text-white antialiased">
 
-  <header class="container-custom" style="text-align: center;">
-    <a href="index.html">
-      <img src="images/logo.png" alt="Karaoke Party Logo" class="header-logo">
-    </a>
-    <nav style="margin-top: 20px;">
-      <a href="index.html" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold;">Home</a>
-      <a href="musicas.html" style="color: #6C0175; text-decoration: none; margin: 0 15px; font-weight: bold;">Lista
-        Karaoke</a>
-    </nav>
+  <div class="page-bg-overlay"></div>
+
+  <header class="fixed top-0 left-0 w-full z-50 bg-black/20 backdrop-blur-lg border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+      <a href="index.html" class="flex items-center">
+        <img src="images/logo.png" alt="Karaoke Party" class="h-12 hover:scale-105 transition-transform">
+      </a>
+      <nav class="hidden md:flex items-center gap-10 text-sm font-bold tracking-widest">
+        <a href="index.html" class="nav-link text-white">HOME</a>
+        <a href="musicas.html" class="nav-link text-fuchsia-500">LISTA KARAOKE</a>
+      </nav>
+      <div class="md:hidden">
+        <i class="fas fa-bars text-2xl cursor-pointer"></i>
+      </div>
+    </div>
   </header>
 
-  <main class="container-custom">
-    <!-- Seção de Sugestões -->
-    <section class="karaoke-sugestoes-header">
-      <h2 class="titulo-pesquisa">🎤 Pesquise sua música favorita!</h2>
-      <p class="subtitulo-pesquisa">
-        Você pode procurar por artista, título, ou até pela letra inicial.
+  <main class="max-w-7xl mx-auto px-6 pt-32 pb-20 relative z-10">
+
+    <section class="text-center mb-12">
+      <h1 class="text-5xl md:text-7xl font-black mb-6">
+        <span class="text-neon pointer-events-none">Pesquise sua</span><br>
+        <span class="text-white">música favorita!</span>
+      </h1>
+      <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+        Explore nosso catálogo gigante. Busque por artista, título ou navegue pelas letras iniciais.
       </p>
     </section>
 
-    <section class="karaoke-sugestoes">
-      <div class="box-sugestoes">
-        <h3>🎲 Tá sem ideia? Deixa a gente escolher! 😄</h3>
-        <div class="botoes-sugestoes">
-          <button onclick="sugerirMusica()">🎵 Aleatória <br>(Todos os idiomas)</button>
-          <button onclick="sugerirMusicaPorIdioma('BRA')">🇧🇷 Aleatória <br>em Português</button>
-          <button onclick="sugerirMusicaPorIdioma('ING')">🇺🇸 Aleatória <br>em Inglês</button>
-        </div>
-        <div id="sugestao" class="musica-sugerida"></div>
+    <!-- Seção de Sugestões Premium -->
+    <section class="box-sugestoes">
+      <h3 class="hero-gradient">🎲 Tá sem ideia? Deixa a gente escolher! 😄</h3>
+      <div class="botoes-sugestoes">
+        <button onclick="sugerirMusica()"><i class="fas fa-random mr-2"></i>ALEATÓRIA <br><span
+            class="text-[0.7rem] opacity-70">Todos os idiomas</span></button>
+        <button onclick="sugerirMusicaPorIdioma('BRA')"><i class="fas fa-flag mr-2"></i>ALEATÓRIA <br><span
+            class="text-[0.7rem] opacity-70">Em Português</span></button>
+        <button onclick="sugerirMusicaPorIdioma('ING')"><i class="fas fa-globe-americas mr-2"></i>ALEATÓRIA <br><span
+            class="text-[0.7rem] opacity-70">Em Inglês</span></button>
+      </div>
 
-        <div style="margin-top:15px;">
-          <a id="botaoWhatsapp" href="#" target="_blank"
-            style="display:none;background:#25D366;color:#fff;padding:10px 14px;border-radius:6px;text-decoration:none;">
-            Pedir essa música no WhatsApp
-          </a>
-        </div>
+      <div id="sugestao" class="musica-sugerida text-2xl font-black mt-8 text-fuchsia-400"></div>
+
+      <div class="mt-8">
+        <a id="botaoWhatsapp" href="#" target="_blank"
+          class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full transition-all transform hover:scale-105 shadow-lg shadow-green-500/30 hidden">
+          <i class="fab fa-whatsapp text-2xl mr-3"></i>
+          Pedir essa música agora!
+        </a>
       </div>
     </section>
 
-    <!-- Filtros e Tabela de Músicas -->
-    <div id="dataAtualizacao"></div>
+    <!-- Filtros e Tabelas -->
+    <div id="dataAtualizacao" class="text-sm text-gray-500 mb-4 text-center italic"></div>
 
-    <div id="filtros">
-      <input type="text" id="busca" placeholder="Buscar música...">
+    <div id="filtros" class="items-center">
+      <div class="relative flex-1">
+        <i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-500"></i>
+        <input type="text" id="busca" placeholder="Buscar artista ou título..." class="w-full pl-14">
+      </div>
+
+      <button id="btnVerFavoritos"
+        class="bg-gray-800 hover:bg-fuchsia-600 text-white px-6 py-3 rounded-full flex items-center gap-2 transition-all font-bold border border-white/10">
+        <i class="fas fa-star text-yellow-400"></i>
+        <span id="txtFavoritos">Meus Favoritos</span>
+      </button>
+
       <select id="idiomaFiltro">
-        <option value="">Selecionar idioma</option>
-        <option value="ING">Inglês</option>
-        <option value="BRA">Português</option>
+        <option value="">Todos os Idiomas</option>
+        <option value="BRA">Português 🇧🇷</option>
+        <option value="ING">Inglês 🇺🇸</option>
       </select>
+
       <select id="itensPorPagina">
-        <option value="25">25 por página</option>
-        <option value="50">50 por página</option>
-        <option value="100">100 por página</option>
+        <option value="25">25 itens</option>
+        <option value="50">50 itens</option>
+        <option value="100">100 itens</option>
       </select>
     </div>
 
     <div id="menuLetras"></div>
 
-    <table id="tabelaMusicas">
-      <thead>
-        <tr>
-          <th>CÓDIGO</th>
-          <th>ARTISTA</th>
-          <th>TÍTULO</th>
-          <th>LETRA INICIAL</th>
-          <th class="col-pedir">PEDIR</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Populado via JS -->
-      </tbody>
-    </table>
+    <div class="overflow-x-auto">
+      <table id="tabelaMusicas">
+        <thead>
+          <tr>
+            <th class="w-20">CÓDIGO</th>
+            <th>ARTISTA</th>
+            <th>TÍTULO</th>
+            <th class="w-16">IDIOMA</th>
+            <th class="w-32 text-center">AÇÃO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Populado via JS -->
+        </tbody>
+      </table>
+    </div>
 
     <div class="paginacao" id="paginacao"></div>
   </main>
 
-  <footer class="container-custom"
-    style="padding: 50px 0; text-align: center; border-top: 1px solid #333; margin-top: 50px;">
-    <div style="font-size: 1.5rem; font-weight: bold; margin-bottom: 20px;">
-      <span class="hero-gradient">Karaoke</span> <span style="color: white;">Party</span>
+  <div id="scrollTop" class="scroll-top-btn" title="Voltar ao Topo">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <footer class="py-20 bg-black border-t border-white/5 text-center relative z-10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-3xl font-black mb-8">
+        <span class="text-fuchsia-500">Karaoke</span>
+        <span class="text-white">Party</span>
+      </div>
+      <p class="text-xl text-gray-500 mb-10 max-w-lg mx-auto">
+        Transformando cada encontro em um espetáculo inesquecível.
+      </p>
+      <div class="flex justify-center gap-8 mb-12">
+        <a href="#" class="text-gray-600 hover:text-white transition-colors text-2xl"><i
+            class="fab fa-instagram"></i></a>
+        <a href="#" class="text-gray-600 hover:text-white transition-colors text-2xl"><i
+            class="fab fa-facebook"></i></a>
+        <a href="#" class="text-gray-600 hover:text-white transition-colors text-2xl"><i class="fab fa-youtube"></i></a>
+      </div>
+      <p class="text-gray-700 font-bold uppercase tracking-widest text-sm">
+        © 2026 Karaoke Party. Todos os direitos reservados.
+      </p>
     </div>
-    <p style="color: #888;">A diversão musical está a apenas um clique de distância!</p>
-    <div style="margin: 20px 0; display: flex; justify-center: center; gap: 20px; font-size: 1.2rem;">
-      <i class="fa-solid fa-music text-purple-500"></i>
-    </div>
-    <p style="color: #666; font-size: 0.8rem;">© 2024 Karaoke Party. Todos os direitos reservados.</p>
   </footer>
 
   <!-- JavaScript Externo -->

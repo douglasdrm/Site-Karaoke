@@ -1,9 +1,12 @@
 /* Estilos Gerais Extraídos de musicas.html */
 
 /* WordPress/Elementor Defaults */
-img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+img:is([sizes=auto i], [sizes^="auto," i]) {
+    contain-intrinsic-size: 3000px 1500px
+}
 
-img.wp-smiley, img.emoji {
+img.wp-smiley,
+img.emoji {
     display: inline !important;
     border: none !important;
     box-shadow: none !important;
@@ -36,13 +39,17 @@ img.wp-smiley, img.emoji {
 .e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
     background-image: none !important;
 }
+
 @media screen and (max-height: 1024px) {
+
     .e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload),
     .e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload) * {
         background-image: none !important;
     }
 }
+
 @media screen and (max-height: 640px) {
+
     .e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload),
     .e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload) * {
         background-image: none !important;
@@ -58,7 +65,8 @@ img.wp-smiley, img.emoji {
     background-color: #F2E6FF;
 }
 
-#tabelaMusicas td, #tabelaMusicas th {
+#tabelaMusicas td,
+#tabelaMusicas th {
     color: #333333;
     padding: 10px;
     font-size: 16px;
@@ -93,251 +101,370 @@ img.wp-smiley, img.emoji {
 }
 
 /* Bloco das sugestões */
-.karaoke-sugestoes .box-sugestoes {
-    padding: 20px;
-    background: #111;
-    border-radius: 8px;
-    text-align: center;
-    margin: 0 auto 40px auto;
-    color: #fff;
-    max-width: 500px;
+/* ==========================================================================
+   DESIGN SYSTEM - KARAOKE PARTY PREMIUM
+   ========================================================================== */
+
+:root {
+    --primary: #2d43d8;
+    --primary-blur: rgba(45, 67, 216, 0.4);
+    --secondary: #d946ef;
+    --accent: #a020f0;
+    --bg-dark: #000000;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-white: #ffffff;
+    --text-gray: #a1a1aa;
 }
 
-.karaoke-sugestoes .box-sugestoes h3 {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    color: #ccc;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
-.karaoke-sugestoes .botoes-sugestoes {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-.karaoke-sugestoes .botoes-sugestoes button {
-    background: #6c0175;
-    color: #fff;
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s;
-    font-size: 1rem;
-}
-
-.karaoke-sugestoes .botoes-sugestoes button:hover {
-    background: #9200ad;
-}
-
-.karaoke-sugestoes .musica-sugerida {
-    font-size: 1.2rem;
-    color: #fff;
-    padding: 10px;
-    border-radius: 6px;
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-@media (min-width: 768px) {
-    .karaoke-sugestoes .botoes-sugestoes {
-        flex-direction: row;
-        justify-content: center;
-    }
-    .karaoke-sugestoes .botoes-sugestoes button {
-        flex: 1;
-        max-width: 200px;
-    }
-}
-
-.elementor-container .elementor-widget-html:last-child {
-    margin-top: 10px !important;
-}
-
-/* Acervo de Karaoke Layout */
-#dataAtualizacao {
-    text-align: center;
-    margin: 15px 0;
-    color: #6C0175;
-    font-weight: bold;
-}
-
-#filtros {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 15px;
-    padding: 0 10px;
-}
-
-#filtros input,
-#filtros select {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    min-width: 180px;
-    color: #000;
-}
-
-#menuLetras {
-    text-align: center;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-#menuLetras button {
-    margin: 3px;
-    padding: 6px 12px;
-    font-size: 15px;
-    border: none;
-    border-radius: 4px;
-    background-color: #eee;
-    cursor: pointer;
-    color: #000;
-}
-
-#menuLetras button.active,
-#menuLetras button:hover {
-    background-color: #6C0175;
-    color: white;
-}
-
-table {
+/* Background Stage Effect */
+.page-bg-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    margin: 0 auto;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.85)), url('../images/Stage-Border-Lights.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
 }
 
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
-    padding: 12px;
-    text-align: left;
-}
-
-th {
-    background-color: #2D43D8;
-    color: #fff;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.paginacao {
-    display: flex;
-    gap: 5px;
-    justify-content: center;
-    margin-top: 20px;
-    text-align: center;
-}
-
-.paginacao button {
-    background-color: #2D43D8;
-    color: white;
-    padding: 10px;
-    border: none;
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.paginacao button:hover {
-    background-color: #6C0175;
-}
-
-.paginacao button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-.paginacao button.ativo {
-    background-color: #333;
-    color: #fff;
-    font-weight: bold;
-}
-
-/* Botão WhatsApp na Tabela */
-.col-pedir {
-    width: 70px;
-    text-align: center;
-}
-
-.btnPedido {
-    background-color: #25D366;
-    color: white;
-    padding: 6px 10px;
-    border-radius: 4px;
-    text-decoration: none;
-    display: inline-block;
-    opacity: 0;
-    transition: 0.2s ease;
-}
-
-tr:hover .btnPedido {
-    opacity: 1;
-}
-
-.btnPedido:hover {
-    background-color: #1ebe5d;
-}
-
-@media (max-width: 768px) {
-    table {
-        width: 100%;
-    }
-
-    th, td {
-        padding: 6px;
-        font-size: 13px;
-        text-align: center;
-        vertical-align: middle;
-        white-space: normal;
-        word-break: normal;
-        overflow-wrap: normal;
-    }
-
-    th {
-        font-size: 12px;
-    }
-
-    th:nth-child(4),
-    td:nth-child(4) {
-        display: none;
-    }
-
-    .btnPedido {
-        opacity: 1;
-        padding: 6px 8px;
-        font-size: 14px;
-    }
-}
-
-/* Karaoke Party Footer Section Styles */
+/* Typography */
 .hero-gradient {
-    background: linear-gradient(45deg, #2d43d8, #a020f0);
+    background: linear-gradient(45deg, var(--secondary) 0%, var(--text-white) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
 }
 
-.pulse {
-    animation: pulse 2s infinite;
+.text-neon {
+    color: var(--secondary);
+    text-shadow: 0 0 10px rgba(217, 70, 239, 0.5), 0 0 20px rgba(217, 70, 239, 0.2);
+}
+
+/* Header & Navigation (Consistent with Index) */
+header {
+    background: rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.nav-link {
+    transition: all 0.3s ease;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.nav-link:hover {
+    color: var(--secondary) !important;
+    text-shadow: 0 0 8px var(--secondary);
+}
+
+/* Suggestion Box - Glassmorphism */
+.box-sugestoes {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 40px;
+    text-align: center;
+    margin: 40px 0;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.box-sugestoes h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: var(--text-white);
+}
+
+.botoes-sugestoes {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.botoes-sugestoes button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 5px 15px var(--primary-blur);
+    font-size: 0.9rem;
+    line-height: 1.2;
+}
+
+.botoes-sugestoes button:hover {
+    transform: scale(1.05) translateY(-3px);
+    background: #3e54e9;
+    box-shadow: 0 10px 25px var(--primary-blur);
+}
+
+/* Search and Filters */
+#filtros {
+    background: var(--glass-bg);
+    padding: 25px;
+    border-radius: 16px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    border: 1px solid var(--glass-border);
+}
+
+#busca,
+#idiomaFiltro,
+#itensPorPagina {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--glass-border);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    outline: none;
+    transition: all 0.3s;
+}
+
+#busca {
+    flex: 1;
+    min-width: 250px;
+}
+
+#busca:focus {
+    border-color: var(--secondary);
+    box-shadow: 0 0 10px rgba(217, 70, 239, 0.3);
+}
+
+/* Table Styling */
+#tabelaMusicas {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    margin-top: 20px;
+}
+
+#tabelaMusicas th {
+    background: transparent;
+    color: var(--text-gray);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    padding: 15px;
+    text-align: left;
+}
+
+#tabelaMusicas tbody tr {
+    background: var(--glass-bg);
+    transition: all 0.3s;
+}
+
+#tabelaMusicas tbody tr:hover {
+    background: rgba(160, 32, 240, 0.2) !important;
+    box-shadow: inset 0 0 20px rgba(160, 32, 240, 0.3);
+}
+
+#tabelaMusicas tbody tr:hover td {
+    color: #fff !important;
+}
+
+#tabelaMusicas td {
+    padding: 18px 15px;
+    border-bottom: 1px solid var(--glass-border);
+    transition: all 0.3s;
+}
+
+#tabelaMusicas td:first-child {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+#tabelaMusicas td:last-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* Estilo do Código */
+.col-codigo {
+    font-size: 1.25rem !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.1em;
+    color: #ffd700 !important;
+    /* Dourado vibrante para destaque total */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+.col-pedir button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Star/Favorite Toggle */
+.star-btn {
+    color: var(--text-gray);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+.star-btn.active {
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* Letter Menu */
+#menuLetras {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 25px;
+    justify-content: center;
+}
+
+.letra-btn {
+    background: var(--glass-bg);
+    color: white;
+    border: 1px solid var(--glass-border);
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.2s;
+}
+
+.letra-btn:hover,
+.letra-btn.active {
+    background: var(--secondary);
+    border-color: var(--secondary);
+}
+
+/* Pagination */
+.paginacao {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 40px;
+}
+
+.paginacao button {
+    background: var(--glass-bg);
+    color: white;
+    border: 1px solid var(--glass-border);
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.paginacao button.active {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+/* Float Buttons */
+.scroll-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--secondary);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.scroll-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Footer (Consistent) */
+footer {
+    border-top: 1px solid var(--glass-border) !important;
+}
+
+@media (max-width: 768px) {
+    #filtros {
+        flex-direction: column;
+    }
+
+    #tabelaMusicas thead {
+        display: none;
+    }
+
+    #tabelaMusicas td {
+        display: block;
+        text-align: right;
+        border: none;
+        padding: 10px;
+    }
+
+    #tabelaMusicas td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        color: var(--secondary);
+    }
+
+    #tabelaMusicas td:first-child {
+        border-radius: 12px 12px 0 0;
+    }
+
+    #tabelaMusicas td:last-child {
+        border-radius: 0 0 12px 12px;
+        border-bottom: 2px solid var(--secondary);
+    }
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
 }
