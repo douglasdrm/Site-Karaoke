@@ -223,6 +223,8 @@ header {
 #busca {
     flex: 1;
     min-width: 250px;
+    padding-left: 55px !important;
+    /* Espaço para o ícone de lupa */
 }
 
 #busca:focus {
