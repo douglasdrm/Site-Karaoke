@@ -206,6 +206,8 @@ header {
     flex-wrap: wrap;
     margin-bottom: 30px;
     border: 1px solid var(--glass-border);
+    justify-content: center;
+    /* Centraliza os filtros */
 }
 
 #busca,
