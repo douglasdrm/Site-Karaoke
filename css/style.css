@@ -248,15 +248,21 @@ header {
     text-align: left;
 }
 
+#tabelaMusicas {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    table-layout: fixed;
+    /* Força o respeito às larguras definidas no HTML */
+}
+
 #tabelaMusicas tbody tr {
     background: rgba(0, 0, 0, 0.4);
-    /* Fundo bem escuro por padrão */
     transition: all 0.3s ease;
 }
 
 #tabelaMusicas tbody tr:hover {
     background: rgba(255, 255, 255, 0.1) !important;
-    /* Brilho no hover */
     transform: translateX(5px);
 }
 
@@ -264,6 +270,17 @@ header {
     padding: 15px;
     border-bottom: 1px solid var(--glass-border);
     color: var(--text-white);
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Permitir que a Letra quebre linha se necessário */
+#tabelaMusicas td[data-label="LETRA"] {
+    white-space: normal;
+    line-height: 1.4;
+    font-size: 0.85rem;
 }
 
 #tabelaMusicas td:first-child {
@@ -406,18 +423,26 @@ footer {
 }
 
 @media (max-width: 768px) {
+    .overflow-x-auto {
+        margin: 0 -1rem;
+        padding: 0 1rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
     #tabelaMusicas {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
+        min-width: 800px;
+        /* Garante que as colunas tenham espaço para respirar */
     }
 
     #tabelaMusicas td,
     #tabelaMusicas th {
-        padding: 10px 5px;
+        padding: 12px 8px;
     }
 
-    /* Reduzir colunas menos importantes se necessário no mobile */
+    /* Reduzir colunas menores no mobile */
     .col-codigo {
-        font-size: 0.85rem !important;
+        font-size: 0.8rem !important;
     }
 }
 
