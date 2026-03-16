@@ -205,7 +205,7 @@ function carregarTabela() {
             const linkWA = `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;
 
             tr.innerHTML = `
-                <td data-label="CÓDIGO" class="col-codigo">#${m.codigo}</td>
+                <td data-label="CÓDIGO" class="col-codigo">${m.codigo}</td>
                 <td data-label="ARTISTA" class="font-semibold text-white uppercase">${m.artista}</td>
                 <td data-label="TÍTULO" class="text-gray-300 italic">${m.titulo}</td>
                 <td data-label="IDIOMA" class="text-gray-500 text-xs font-bold uppercase">${m.idioma}</td>
@@ -299,7 +299,7 @@ function mostrarSugestao(m) {
     void div.offsetWidth; // trigger reflow
     div.classList.add('animate-pulse');
 
-    div.innerHTML = `<span class="text-white opacity-50 text-sm block mb-1">SUGESTÃO:</span> ${m.artista} - ${m.titulo} <br> <span class="text-sm font-normal text-gray-500 font-sans">Código: ${m.codigo}</span>`;
+    div.innerHTML = `<span class="text-white opacity-50 text-sm block mb-1">SUGESTÃO:</span> ${m.artista} - ${m.titulo} <br> <span>${m.codigo}</span>`;
 
     if (btn) {
         const mensagem = encodeURIComponent(`🎤 Pedido de Música\n\nCódigo: ${m.codigo}\nMúsica: ${m.titulo}\nArtista: ${m.artista}\n\nNome do cantor: `);

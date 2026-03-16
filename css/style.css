@@ -56,29 +56,6 @@ img.emoji {
     }
 }
 
-/* Tabela de Músicas - Custom */
-#tabelaMusicas tr:nth-child(odd) {
-    background-color: #E6F0FF;
-}
-
-#tabelaMusicas tr:nth-child(even) {
-    background-color: #F2E6FF;
-}
-
-#tabelaMusicas td,
-#tabelaMusicas th {
-    color: #333333;
-    padding: 10px;
-    font-size: 16px;
-    border-bottom: 1px solid #DDD;
-}
-
-#tabelaMusicas th {
-    background-color: #4A90E2;
-    color: #FFFFFF;
-    font-weight: bold;
-}
-
 /* Cabeçalho da busca */
 .karaoke-sugestoes-header {
     padding: 30px 0 20px;
@@ -272,23 +249,21 @@ header {
 }
 
 #tabelaMusicas tbody tr {
-    background: var(--glass-bg);
-    transition: all 0.3s;
+    background: rgba(0, 0, 0, 0.4);
+    /* Fundo bem escuro por padrão */
+    transition: all 0.3s ease;
 }
 
 #tabelaMusicas tbody tr:hover {
-    background: rgba(160, 32, 240, 0.2) !important;
-    box-shadow: inset 0 0 20px rgba(160, 32, 240, 0.3);
-}
-
-#tabelaMusicas tbody tr:hover td {
-    color: #fff !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    /* Brilho no hover */
+    transform: translateX(5px);
 }
 
 #tabelaMusicas td {
-    padding: 18px 15px;
+    padding: 15px;
     border-bottom: 1px solid var(--glass-border);
-    transition: all 0.3s;
+    color: var(--text-white);
 }
 
 #tabelaMusicas td:first-child {
@@ -301,14 +276,26 @@ header {
     border-bottom-right-radius: 12px;
 }
 
-/* Estilo do Código */
+/* Estilo do Código na Tabela */
 .col-codigo {
-    font-size: 1.25rem !important;
-    font-weight: 900 !important;
-    letter-spacing: 0.1em;
-    color: #ffd700 !important;
-    /* Dourado vibrante para destaque total */
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+    font-size: 0.95rem !important;
+    /* Reduzido conforme feedback */
+    font-weight: 700 !important;
+    color: #00f2ff !important;
+    /* Ciano Neon para máximo contraste no escuro */
+    text-shadow: 0 0 8px rgba(0, 242, 255, 0.4);
+}
+
+/* Código na Sugestão (Precisa ser maior) */
+.musica-sugerida span {
+    font-size: 1.4rem !important;
+    /* Aumentado significativamente */
+    font-weight: 900;
+    color: #00f2ff !important;
+    display: inline-block;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .col-pedir button {
