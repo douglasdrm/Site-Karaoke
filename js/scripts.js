@@ -208,7 +208,7 @@ function carregarTabela() {
                 <td data-label="CÓDIGO" class="col-codigo">${m.codigo}</td>
                 <td data-label="ARTISTA" class="font-semibold text-white uppercase">${m.artista}</td>
                 <td data-label="TÍTULO" class="text-gray-300 italic">${m.titulo}</td>
-                <td data-label="IDIOMA" class="text-gray-500 text-xs font-bold uppercase">${m.idioma}</td>
+                <td data-label="LETRA" class="text-gray-400 text-sm italic">${m.inicioletra || '-'}</td>
                 <td class="text-center">
                     <div class="flex justify-center items-center gap-3">
                         <i class="fas fa-star star-btn ${isFav ? 'active' : ''}" onclick="toggleFavorito('${m.codigo}', this)"></i>

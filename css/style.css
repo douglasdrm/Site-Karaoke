@@ -406,35 +406,18 @@ footer {
 }
 
 @media (max-width: 768px) {
-    #filtros {
-        flex-direction: column;
+    #tabelaMusicas {
+        font-size: 0.8rem;
     }
 
-    #tabelaMusicas thead {
-        display: none;
+    #tabelaMusicas td,
+    #tabelaMusicas th {
+        padding: 10px 5px;
     }
 
-    #tabelaMusicas td {
-        display: block;
-        text-align: right;
-        border: none;
-        padding: 10px;
-    }
-
-    #tabelaMusicas td::before {
-        content: attr(data-label);
-        float: left;
-        font-weight: bold;
-        color: var(--secondary);
-    }
-
-    #tabelaMusicas td:first-child {
-        border-radius: 12px 12px 0 0;
-    }
-
-    #tabelaMusicas td:last-child {
-        border-radius: 0 0 12px 12px;
-        border-bottom: 2px solid var(--secondary);
+    /* Reduzir colunas menos importantes se necessário no mobile */
+    .col-codigo {
+        font-size: 0.85rem !important;
     }
 }
 
