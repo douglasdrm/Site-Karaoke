@@ -6,22 +6,32 @@ let paginaAtual = 1;
 let itensPorPagina = 25;
 let letraSelecionada = "";
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Inicialização da Tabela de Músicas
     if (document.getElementById("tabelaMusicas")) {
+        console.log("Tentando carregar músicas de:", urlJSON);
         fetch(urlJSON)
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error("Erro ao carregar o arquivo JSON: " + res.status);
+                return res.json();
+            })
             .then(data => {
-                todasMusicas = data.musicas;
-                
+                console.log("JSON carregado com sucesso. Total de músicas:", data.musicas ? data.musicas.length : 0);
+                todasMusicas = data.musicas || [];
+
+                if (todasMusicas.length === 0) {
+                    console.warn("A lista de músicas está vazia.");
+                    return;
+                }
+
                 // Ordena por artista e depois por título
                 todasMusicas.sort((a, b) => {
-                    const artistaA = a.artista.toUpperCase();
-                    const artistaB = b.artista.toUpperCase();
+                    const artistaA = (a.artista || "").toUpperCase();
+                    const artistaB = (b.artista || "").toUpperCase();
                     if (artistaA < artistaB) return -1;
                     if (artistaA > artistaB) return 1;
-                    const tituloA = a.titulo.toUpperCase();
-                    const tituloB = b.titulo.toUpperCase();
+                    const tituloA = (a.titulo || "").toUpperCase();
+                    const tituloB = (b.titulo || "").toUpperCase();
                     if (tituloA < tituloB) return -1;
                     if (tituloA > tituloB) return 1;
                     return 0;
@@ -37,8 +47,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 carregarTabela();
             })
             .catch(err => {
-                console.error("Erro ao carregar JSON:", err);
-                // alert("Erro ao carregar a lista de músicas.");
+                console.error("Erro detalhado ao carregar JSON:", err);
+                const tabela = document.querySelector("#tabelaMusicas tbody");
+                if (tabela) {
+                    tabela.innerHTML = `<tr><td colspan="5" style="text-align:center; color:red; padding:20px;">
+                        Erro ao carregar a lista de músicas.<br>
+                        Certifique-se de que está usando um servidor local (como Live Server) ou que o arquivo <strong>data/songs.json</strong> existe.<br>
+                        <small>${err.message}</small>
+                    </td></tr>`;
+                }
             });
     }
 
@@ -69,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Lógica do Sugestor (Randomizer)
-    setInterval(function() {
+    setInterval(function () {
         const sugestao = document.getElementById("sugestao");
         const botao = document.getElementById("botaoWhatsapp");
 
@@ -99,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
             musicNote.style.transform = `rotate(${rotation}deg)`;
         }, 100);
     }
-    
+
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -142,7 +159,7 @@ function gerarMenuLetras() {
             letraSelecionada = letraSelecionada === letra ? "" : letra;
             paginaAtual = 1;
             carregarTabela();
-            gerarMenuLetras(); 
+            gerarMenuLetras();
         };
         container.appendChild(btn);
     });
@@ -151,13 +168,13 @@ function gerarMenuLetras() {
 function carregarTabela() {
     const buscaElement = document.getElementById("busca");
     const idiomaElement = document.getElementById("idiomaFiltro");
-    
+
     const busca = buscaElement ? buscaElement.value.toLowerCase() : "";
     const idioma = idiomaElement ? idiomaElement.value : "";
 
     let filtradas = todasMusicas.filter(m => {
-        const artistaMatch = letraSelecionada === "#" 
-            ? !/^[A-Z]/i.test(m.artista.charAt(0)) 
+        const artistaMatch = letraSelecionada === "#"
+            ? !/^[A-Z]/i.test(m.artista.charAt(0))
             : !letraSelecionada || m.artista.toUpperCase().startsWith(letraSelecionada);
 
         return (
@@ -207,7 +224,7 @@ function carregarTabela() {
 function gerarPaginacao(total) {
     const paginacaoDiv = document.getElementById("paginacao");
     if (!paginacaoDiv) return;
-    paginacaoDiv.innerHTML = ""; 
+    paginacaoDiv.innerHTML = "";
 
     const totalPaginas = Math.ceil(total / itensPorPagina);
 
