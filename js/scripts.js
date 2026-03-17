@@ -200,7 +200,7 @@ function carregarTabela() {
             const isFav = favoritos.includes(m.codigo);
             const tr = document.createElement("tr");
 
-            const numeroWhatsApp = "5511999999999"; // Substituir conforme necessário
+            const numeroWhatsApp = "5521967192554"; // Substituir conforme necessário
             const mensagem = encodeURIComponent(`🎤 Pedido de Música\n\nCódigo: ${m.codigo}\nMúsica: ${m.titulo}\nArtista: ${m.artista}\n\nNome do cantor: `);
             const linkWA = `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;
 
@@ -319,7 +319,7 @@ function mostrarSugestao(m) {
 
     if (containerAcoes) {
         containerAcoes.classList.remove("hidden");
-        
+
         // Configura WhatsApp
         if (btnWA) {
             const mensagem = encodeURIComponent(`🎤 Pedido de Música\n\nCódigo: ${m.codigo}\nMúsica: ${m.titulo}\nArtista: ${m.artista}\n\nNome do cantor: `);
@@ -330,12 +330,12 @@ function mostrarSugestao(m) {
         if (btnFav) {
             const isFav = favoritos.includes(m.codigo);
             btnFav.querySelector('i').className = isFav ? "fas fa-star text-yellow-400 text-xl" : "far fa-star text-white text-xl";
-            
+
             btnFav.onclick = () => {
                 toggleFavorito(m.codigo, null);
                 const novoIsFav = favoritos.includes(m.codigo);
                 btnFav.querySelector('i').className = novoIsFav ? "fas fa-star text-yellow-400 text-xl" : "far fa-star text-white text-xl";
-                
+
                 // Atualiza a tabela se estiver visível para refletir a mudança
                 carregarTabela();
             };
