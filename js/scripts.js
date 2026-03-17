@@ -304,14 +304,14 @@ function mostrarSugestao(m) {
     void div.offsetWidth; // trigger reflow
     div.classList.add('animate-pulse');
 
-    // Novo layout de 3 linhas solicitado pelo usuário
+    // Novo layout de 3 linhas solicitado pelo usuário - Refinado
     div.innerHTML = `
-        <div class="flex flex-col items-center gap-2">
-            <span class="text-white opacity-50 text-xs tracking-[0.2em] font-bold">SUGESTÃO</span>
-            <span class="text-white text-xl md:text-2xl">${m.artista}</span>
-            <span class="text-fuchsia-400 text-2xl md:text-3xl font-black uppercase tracking-tight">${m.titulo}</span>
-            <div class="mt-2">
-                <span class="bg-fuchsia-500/20 text-fuchsia-300 px-4 py-1 rounded-full text-lg font-bold border border-fuchsia-500/30 shadow-[0_0_15px_rgba(217,70,239,0.2)]">${m.codigo}</span>
+        <div class="flex flex-col items-center gap-1">
+            <span class="text-fuchsia-400 opacity-80 text-xs tracking-[0.3em] font-bold mb-1">SUGESTÃO</span>
+            <span class="text-white text-lg md:text-xl font-medium">${m.artista}</span>
+            <span class="text-white text-2xl md:text-4xl font-black tracking-tight">${m.titulo}</span>
+            <div class="mt-3">
+                <span class="bg-white/10 text-fuchsia-300 px-5 py-1.5 rounded-full text-xl font-black border border-white/20 shadow-lg">${m.codigo}</span>
             </div>
         </div>
     `;
