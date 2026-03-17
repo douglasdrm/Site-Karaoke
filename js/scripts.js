@@ -323,7 +323,7 @@ function mostrarSugestao(m) {
         // Configura WhatsApp
         if (btnWA) {
             const mensagem = encodeURIComponent(`🎤 Pedido de Música\n\nCódigo: ${m.codigo}\nMúsica: ${m.titulo}\nArtista: ${m.artista}\n\nNome do cantor: `);
-            btnWA.href = `https://wa.me/5511999999999?text=${mensagem}`;
+            btnWA.href = `https://wa.me/5521967192554?text=${mensagem}`;
         }
 
         // Configura Favorito na Sugestão
