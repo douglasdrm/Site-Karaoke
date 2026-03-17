@@ -294,18 +294,50 @@ function sugerirMusicaPorIdioma(idioma) {
 
 function mostrarSugestao(m) {
     const div = document.getElementById("sugestao");
-    const btn = document.getElementById("botaoWhatsapp");
+    const containerAcoes = document.getElementById("acoesSugestao");
+    const btnWA = document.getElementById("botaoWhatsapp");
+    const btnFav = document.getElementById("btnFavoritoSugestao");
+
     if (!div) return;
 
     div.classList.remove('animate-pulse');
     void div.offsetWidth; // trigger reflow
     div.classList.add('animate-pulse');
 
-    div.innerHTML = `<span class="text-white opacity-50 text-sm block mb-1">SUGESTÃO:</span> ${m.artista} - ${m.titulo} <br> <span>${m.codigo}</span>`;
+    // Novo layout de 3 linhas solicitado pelo usuário
+    div.innerHTML = `
+        <div class="flex flex-col items-center gap-2">
+            <span class="text-white opacity-50 text-xs tracking-[0.2em] font-bold">SUGESTÃO</span>
+            <span class="text-white text-xl md:text-2xl">${m.artista}</span>
+            <span class="text-fuchsia-400 text-2xl md:text-3xl font-black uppercase tracking-tight">${m.titulo}</span>
+            <div class="mt-2">
+                <span class="bg-fuchsia-500/20 text-fuchsia-300 px-4 py-1 rounded-full text-lg font-bold border border-fuchsia-500/30 shadow-[0_0_15px_rgba(217,70,239,0.2)]">${m.codigo}</span>
+            </div>
+        </div>
+    `;
 
-    if (btn) {
-        const mensagem = encodeURIComponent(`🎤 Pedido de Música\n\nCódigo: ${m.codigo}\nMúsica: ${m.titulo}\nArtista: ${m.artista}\n\nNome do cantor: `);
-        btn.href = `https://wa.me/5511999999999?text=${mensagem}`;
-        btn.classList.remove("hidden");
+    if (containerAcoes) {
+        containerAcoes.classList.remove("hidden");
+        
+        // Configura WhatsApp
+        if (btnWA) {
+            const mensagem = encodeURIComponent(`🎤 Pedido de Música\n\nCódigo: ${m.codigo}\nMúsica: ${m.titulo}\nArtista: ${m.artista}\n\nNome do cantor: `);
+            btnWA.href = `https://wa.me/5511999999999?text=${mensagem}`;
+        }
+
+        // Configura Favorito na Sugestão
+        if (btnFav) {
+            const isFav = favoritos.includes(m.codigo);
+            btnFav.querySelector('i').className = isFav ? "fas fa-star text-yellow-400 text-xl" : "far fa-star text-white text-xl";
+            
+            btnFav.onclick = () => {
+                toggleFavorito(m.codigo, null);
+                const novoIsFav = favoritos.includes(m.codigo);
+                btnFav.querySelector('i').className = novoIsFav ? "fas fa-star text-yellow-400 text-xl" : "far fa-star text-white text-xl";
+                
+                // Atualiza a tabela se estiver visível para refletir a mudança
+                carregarTabela();
+            };
+        }
     }
 }

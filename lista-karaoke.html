@@ -34,11 +34,11 @@
   <main class="max-w-7xl mx-auto px-6 pt-32 pb-20 relative z-10">
 
     <section class="text-center mb-12">
-      <h1 class="text-5xl md:text-7xl font-black mb-6">
+      <h1 class="text-3xl md:text-5xl font-black mb-6">
         <span class="text-neon pointer-events-none">Pesquise sua</span><br>
         <span class="text-white">música favorita!</span>
       </h1>
-      <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+      <p class="text-lg text-gray-400 max-w-2xl mx-auto">
         Explore nosso catálogo gigante. Busque por artista, título ou navegue pelas letras iniciais.
       </p>
     </section>
@@ -57,12 +57,16 @@
 
       <div id="sugestao" class="musica-sugerida text-2xl font-black mt-8 text-fuchsia-400"></div>
 
-      <div class="mt-8">
+      <div id="acoesSugestao" class="mt-8 flex justify-center items-center gap-4 hidden">
         <a id="botaoWhatsapp" href="#" target="_blank"
-          class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full transition-all transform hover:scale-105 shadow-lg shadow-green-500/30 hidden">
-          <i class="fab fa-whatsapp text-2xl mr-3"></i>
-          Pedir essa música agora!
+          class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 shadow-lg shadow-green-500/30">
+          <i class="fab fa-whatsapp text-xl mr-2"></i>
+          Pedir no WhatsApp
         </a>
+        <button id="btnFavoritoSugestao" 
+          class="bg-gray-800 hover:bg-fuchsia-600 text-white p-4 rounded-full flex items-center justify-center transition-all border border-white/10 shadow-lg">
+          <i class="fas fa-star text-yellow-400 text-xl"></i>
+        </button>
       </div>
     </section>
 
