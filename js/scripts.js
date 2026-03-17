@@ -305,13 +305,14 @@ function mostrarSugestao(m) {
     div.classList.add('animate-pulse');
 
     // Novo layout de 3 linhas solicitado pelo usuário - Diferenciação Total
+    // Novo layout de 3 linhas - Estilo Premium sem conflitos
     div.innerHTML = `
         <div class="flex flex-col items-center gap-1">
-            <span class="text-white opacity-40 text-[0.65rem] tracking-[0.4em] font-bold mb-2">SUGESTÃO</span>
-            <span class="text-white text-lg md:text-xl font-bold uppercase tracking-wide mb-1">${m.artista}</span>
-            <span class="text-fuchsia-500 text-3xl md:text-5xl font-black italic tracking-tighter leading-tight drop-shadow-[0_0_15px_rgba(217,70,239,0.3)]">${m.titulo}</span>
-            <div class="mt-4">
-                <span class="text-[#00f2ff] text-3xl md:text-4xl font-black tracking-widest drop-shadow-[0_0_10px_rgba(0,242,255,0.5)]">${m.codigo}</span>
+            <span class="text-white/40 text-[0.65rem] tracking-[0.5em] font-bold mb-2">SUGESTÃO</span>
+            <span class="text-white text-xl md:text-2xl font-bold uppercase tracking-tight mb-1" style="color: white !important;">${m.artista}</span>
+            <span class="text-fuchsia-500 text-4xl md:text-6xl font-black italic tracking-tighter leading-none drop-shadow-[0_0_20px_rgba(217,70,239,0.4)]" style="color: #d946ef !important;">${m.titulo}</span>
+            <div class="mt-5">
+                <span class="text-[#00f2ff] text-4xl md:text-5xl font-black tracking-[0.2em] drop-shadow-[0_0_15px_rgba(0,242,255,0.6)]" style="color: #00f2ff !important;">${m.codigo}</span>
             </div>
         </div>
     `;

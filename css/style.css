@@ -308,15 +308,12 @@ header {
 }
 
 /* Código na Sugestão (Precisa ser maior) */
-.musica-sugerida span {
-    font-size: 1.4rem !important;
-    /* Aumentado significativamente */
+/* Estilo do Código na Sugestão (Opcional - removendo conflitos) */
+.musica-sugerida .codigo-sugerido {
+    font-size: 1.8rem;
     font-weight: 900;
-    color: #00f2ff !important;
-    display: inline-block;
-    margin-top: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    color: #00f2ff;
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.4);
 }
 
 .col-pedir button {
